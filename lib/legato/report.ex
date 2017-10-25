@@ -14,12 +14,20 @@ defmodule Legato.Report do
     dimensions ++ Enum.map(metrics, fn(m) -> m["name"] end)
   end
 
+  defp headers_from_json(%{"metricHeader" => %{"metricHeaderEntries" => metrics}}) do
+    Enum.map(metrics, fn(m) -> m["name"] end)
+  end
+
   defp values_from_json(%{"data" => %{"rows" => rows}}) do
     Enum.map(rows, &values_from_row(&1))
   end
 
   defp values_from_row(%{"dimensions" => dimensions, "metrics" => metrics}) do
     dimensions ++ Enum.flat_map(metrics, fn(m) -> m["values"] end)
+  end
+
+  defp values_from_row(%{"metrics" => metrics}) do
+    Enum.flat_map(metrics, fn(m) -> m["values"] end)
   end
 
   defp map_row(headers, values) do
