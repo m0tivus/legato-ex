@@ -3,6 +3,8 @@ defmodule Legato.Response do
     Poison.decode!(body) |> as_report
   end
 
+  def build({:error, %HTTPoison.Error{}} = err), do: err
+
   defp as_report(%{"error" => errors}) do
     IO.inspect errors
   end
