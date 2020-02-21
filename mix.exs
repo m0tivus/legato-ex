@@ -32,8 +32,8 @@ defmodule Legato.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev},
-      {:httpoison, "~> 0.9.0"},
-      {:poison, ">= 2.0.0 and <= 3.1.0"}
+      {:httpoison, "~> 1.6"},
+      {:poison, "~> 3.1"}
     ]
   end
 end
